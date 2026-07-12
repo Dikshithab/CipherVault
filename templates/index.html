@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CipherVault | Secure File Encryption</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= HERO ================= -->
+
+<div class="hero text-center py-5">
+
+    <h1 class="display-3 fw-bold">
+
+        🔐 CipherVault
+
+    </h1>
+
+    <p class="lead">
+
+        Secure File Encryption & Decryption
+
+    </p>
+
+    <p>
+
+        AES-128 • Fernet • PBKDF2 • SHA-256
+
+    </p>
+
+</div>
+
+<!-- ================= FLASH MESSAGES ================= -->
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category, message in messages %}
+
+<div class="toast show text-bg-{{ category }} border-0 mb-2">
+
+    <div class="d-flex">
+
+        <div class="toast-body">
+
+            {{ message }}
+
+        </div>
+
+        <button
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast">
+        </button>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+</div>
+
+<!-- ================= MAIN CARD ================= -->
+
+<div class="container py-5">
+
+<div class="card shadow-lg p-5">
+
+<!-- ================= FEATURES ================= -->
+
+<div class="row text-center mb-5">
+
+<div class="col-md-4">
+
+<div class="feature-card">
+
+<i class="bi bi-shield-lock-fill display-4 text-primary"></i>
+
+<h4 class="mt-3">
+
+AES-128 Encryption
+
+</h4>
+
+<p>
+
+Military-grade encryption powered by
+Fernet keeps your files completely secure.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="feature-card">
+
+<i class="bi bi-key-fill display-4 text-warning"></i>
+
+<h4 class="mt-3">
+
+Password Protection
+
+</h4>
+
+<p>
+
+Passwords are converted into secure keys
+using PBKDF2-HMAC-SHA256.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="feature-card">
+
+<i class="bi bi-lightning-charge-fill display-4 text-success"></i>
+
+<h4 class="mt-3">
+
+Fast Processing
+
+</h4>
+
+<p>
+
+Encrypt and decrypt files within seconds
+without compromising security.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-5">
+
+<!-- ================= ABOUT ================= -->
+
+<div class="algorithm-card">
+
+<h2 class="text-center mb-4">
+
+<i class="bi bi-cpu-fill"></i>
+
+How CipherVault Works
+
+</h2>
+
+<p>
+
+CipherVault protects your files using the
+<strong>Fernet Encryption Algorithm</strong>.
+
+Fernet is built on
+
+<strong>AES-128 symmetric encryption</strong>
+
+and provides both encryption and authentication.
+
+Instead of storing secret keys,
+the application generates a secure key
+directly from the password entered by the user.
+
+</p>
+
+<div class="row mt-5">
+
+<div class="col-md-6">
+
+<h4>
+
+🔑 Key Generation
+
+</h4>
+
+<p>
+
+The password is transformed into a
+256-bit encryption key using
+
+<strong>PBKDF2-HMAC-SHA256</strong>.
+
+Over
+
+<strong>100,000 iterations</strong>
+
+are performed, making brute-force attacks
+extremely difficult.
+
+</p>
+
+</div>
+
+<div class="col-md-6">
+
+<h4>
+
+🛡 File Encryption
+
+</h4>
+
+<p>
+
+The generated key is used by the
+
+<strong>Fernet</strong>
+
+library to encrypt the uploaded file.
+
+A cryptographic authentication signature
+is also generated to verify file integrity.
+
+</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<h4>
+
+📋 Encryption Workflow
+
+</h4>
+
+<ul class="workflow-list">
+
+<li>📂 Upload a file.</li>
+
+<li>🔑 Enter a secure password.</li>
+
+<li>⚙ PBKDF2 generates a secure key.</li>
+
+<li>🔐 Fernet encrypts the file.</li>
+
+<li>📥 Download the encrypted file (.enc).</li>
+
+<li>🔓 Upload the encrypted file for decryption.</li>
+
+<li>✅ Enter the same password to restore the original file.</li>
+
+</ul>
+
+<div class="alert alert-info mt-4">
+
+<strong>Security Note:</strong>
+
+CipherVault never stores your password.
+
+The password exists only during encryption
+or decryption and is never saved anywhere.
+
+</div>
+
+</div>
+
+<hr class="my-5">
+
+<!-- ================= SUPPORTED FILES ================= -->
+
+<h3 class="text-center mb-4">
+
+📂 Supported File Types
+
+</h3>
+
+<div class="text-center mb-5">
+
+<span class="badge bg-primary p-2">PDF</span>
+
+<span class="badge bg-success p-2">TXT</span>
+
+<span class="badge bg-warning text-dark p-2">DOCX</span>
+
+<span class="badge bg-danger p-2">PNG</span>
+
+<span class="badge bg-info text-dark p-2">JPG</span>
+
+<span class="badge bg-secondary p-2">CSV</span>
+
+<span class="badge bg-dark p-2">XLSX</span>
+
+</div>
+
+<!-- ================= ENCRYPT SECTION STARTS HERE ================= -->
+<!-- ================= ENCRYPT FILE ================= -->
+
+<h2 class="mb-4">
+
+<i class="bi bi-lock-fill text-success"></i>
+
+Encrypt File
+
+</h2>
+
+<form action="/upload"
+      method="POST"
+      enctype="multipart/form-data">
+
+<label class="drop-area" for="encryptFile">
+
+<div class="drop-content">
+
+<i class="bi bi-cloud-arrow-up-fill display-3"></i>
+
+<h4 class="mt-3">
+
+Drag & Drop File
+
+</h4>
+
+<p>
+
+or Click to Browse
+
+</p>
+
+</div>
+
+<input
+hidden
+id="encryptFile"
+type="file"
+name="file"
+required>
+
+</label>
+
+<p id="encryptFileName" class="filename"></p>
+
+<div id="fileInfo"
+     class="file-info mt-3"
+     style="display:none;">
+
+<h5>
+
+<i class="bi bi-file-earmark-text-fill"></i>
+
+Selected File
+
+</h5>
+
+<p>
+
+<strong>Name :</strong>
+
+<span id="infoName"></span>
+
+</p>
+
+<p>
+
+<strong>Size :</strong>
+
+<span id="infoSize"></span>
+
+</p>
+
+<p>
+
+<strong>Type :</strong>
+
+<span id="infoType"></span>
+
+</p>
+
+</div>
+
+<div class="mt-4">
+
+<label class="form-label">
+
+🔑 Password
+
+</label>
+
+<input
+type="password"
+class="form-control"
+id="password"
+name="password"
+placeholder="Enter a strong password"
+required>
+
+<div class="mt-2">
+
+<small id="strengthText">
+
+Password Strength
+
+</small>
+
+<div class="progress mt-2"
+     style="height:8px;">
+
+<div
+id="strengthBar"
+class="progress-bar"
+role="progressbar"
+style="width:0%;">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="form-text">
+
+Use the same password while decrypting.
+
+</div>
+
+</div>
+
+<button
+class="btn btn-success btn-lg w-100 mt-4">
+
+<i class="bi bi-lock-fill"></i>
+
+Encrypt File
+
+</button>
+
+</form>
+
+<hr class="my-5">
+
+<!-- ================= DECRYPT FILE ================= -->
+
+<h2 class="mb-4">
+
+<i class="bi bi-unlock-fill text-primary"></i>
+
+Decrypt File
+
+</h2>
+
+<form action="/decrypt"
+      method="POST"
+      enctype="multipart/form-data">
+
+<label class="drop-area"
+       for="decryptFile">
+
+<div class="drop-content">
+
+<i class="bi bi-cloud-download-fill display-3"></i>
+
+<h4 class="mt-3">
+
+Upload Encrypted File
+
+</h4>
+
+<p>
+
+Click to Browse
+
+</p>
+
+</div>
+
+<input
+hidden
+id="decryptFile"
+type="file"
+name="file"
+required>
+
+</label>
+
+<p id="decryptFileName"
+   class="filename"></p>
+
+<div class="mt-4">
+
+<label class="form-label">
+
+🔑 Password
+
+</label>
+
+<input
+type="password"
+class="form-control"
+name="password"
+placeholder="Enter the same password"
+required>
+
+<div class="form-text">
+
+The password must match the one used during encryption.
+
+</div>
+
+</div>
+
+<button
+class="btn btn-primary btn-lg w-100 mt-4">
+
+<i class="bi bi-unlock-fill"></i>
+
+Decrypt File
+
+</button>
+
+</form>
+
+<hr class="my-5">
+
+<!-- ================= PROJECT FEATURES ================= -->
+
+<div class="row text-center">
+
+<div class="col-md-4">
+
+<div class="feature-card">
+
+<i class="bi bi-speedometer2 display-4 text-danger"></i>
+
+<h4 class="mt-3">
+
+Fast
+
+</h4>
+
+<p>
+
+Processes files in just a few seconds.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="feature-card">
+
+<i class="bi bi-shield-check display-4 text-success"></i>
+
+<h4 class="mt-3">
+
+Safe
+
+</h4>
+
+<p>
+
+Passwords are never stored anywhere.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="feature-card">
+
+<i class="bi bi-file-earmark-lock2-fill display-4 text-info"></i>
+
+<h4 class="mt-3">
+
+Private
+
+</h4>
+
+<p>
+
+Only you can decrypt your encrypted files.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER STARTS HERE ================= -->
+<!-- ================= LOADER ================= -->
+
+<div id="loader" class="loader-container" style="display:none;">
+
+    <div class="spinner"></div>
+
+    <h3 class="mt-4">
+
+        Processing...
+
+    </h3>
+
+    <p>
+
+        Please wait while CipherVault securely processes your file.
+
+    </p>
+
+</div>
+
+<!-- ================= DARK MODE BUTTON ================= -->
+
+<button id="themeBtn" class="btn btn-dark theme-btn">
+
+    🌙 Dark Mode
+
+</button>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="text-center mt-5">
+
+    <hr>
+
+    <h4 class="fw-bold">
+
+        🔐 CipherVault
+
+    </h4>
+
+    <p>
+
+        Secure File Encryption & Decryption using
+        <strong>Fernet (AES-128)</strong>
+
+    </p>
+
+    <div class="mb-3">
+
+        <span class="badge bg-primary">Python</span>
+
+        <span class="badge bg-success">Flask</span>
+
+        <span class="badge bg-warning text-dark">Cryptography</span>
+
+        <span class="badge bg-info text-dark">Bootstrap 5</span>
+
+    </div>
+
+    <p>
+
+        Developed by
+
+        <strong>Burra Shiva Dikshitha</strong>
+
+    </p>
+
+    <p class="text-muted">
+
+        © 2026 CipherVault. All Rights Reserved.
+
+    </p>
+
+</footer>
+
+</div>
+
+</div>
+
+<!-- ================= BOOTSTRAP ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<script>
+
+document.querySelectorAll(".toast").forEach(function(toast){
+
+    new bootstrap.Toast(toast,{
+        delay:5000
+    }).show();
+
+});
+
+</script>
+
+</body>
+
+</html> 
